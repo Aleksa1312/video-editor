@@ -21,8 +21,9 @@ const SideBar: FC = () => {
                 let file = e.target.files[i];
 
                 let IdFile: IdFile = {
-                    file: file,
-                    id: Date.now()
+                    name: file.name,
+                    id: Date.now(),
+                    url: URL.createObjectURL(file)
                 };
 
                 tempIdFiles.push(IdFile);
@@ -44,7 +45,7 @@ const SideBar: FC = () => {
     }
 
     return (
-        <div className="fixed flex h-full w-96 flex-col items-center justify-between bg-zinc-800 p-2 text-white/90">
+        <div className="fixed flex h-full w-96 flex-col items-center justify-between bg-zinc-900 p-2 text-white/90">
             <UploadedFiles files={files} removeFile={removeIdFile} />
 
             <input

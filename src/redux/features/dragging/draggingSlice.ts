@@ -2,12 +2,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IdFile } from "../sidebar/sidebarSlice";
 
 interface DraggingState {
-    isDraggingFile: boolean;
+    isDragging: boolean;
     draggingFile: IdFile | null;
 }
 
 const initialState: DraggingState = {
-    isDraggingFile: false,
+    isDragging: false,
     draggingFile: null
 };
 
@@ -15,15 +15,15 @@ export const draggingSlice = createSlice({
     name: "fileDragging",
     initialState,
     reducers: {
-        setIsDraggingFile: (state, action: PayloadAction<boolean>) => {
-            state.isDraggingFile = action.payload;
+        setIsDragging: (state, action: PayloadAction<boolean>) => {
+            state.isDragging = action.payload;
         },
-        setDraggingFile: (state, action: PayloadAction<IdFile>) => {
+        setDraggingFile: (state, action: PayloadAction<IdFile | null>) => {
             state.draggingFile = action.payload;
         }
     }
 });
 
-export const { setIsDraggingFile, setDraggingFile } = draggingSlice.actions;
+export const { setIsDragging, setDraggingFile } = draggingSlice.actions;
 
 export default draggingSlice.reducer;

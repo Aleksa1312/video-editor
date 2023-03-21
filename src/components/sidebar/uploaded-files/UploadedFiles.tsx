@@ -9,7 +9,7 @@ export interface UploadedFilesProps {
 
 const UploadedFiles: FC<UploadedFilesProps> = (props) => {
     return (
-        <div className="flex h-full w-full flex-col gap-4 overflow-y-scroll">
+        <div className="flex h-full w-full flex-col gap-4 overflow-y-scroll duration-200">
             {props.files &&
                 props.files.map((item, id) => {
                     return <SideFile item={item} key={id} />;

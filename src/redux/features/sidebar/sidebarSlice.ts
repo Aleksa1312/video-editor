@@ -2,7 +2,8 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 export interface IdFile {
     id: number;
-    file: File;
+    name: string;
+    url: string;
 }
 
 interface SideBarState {
