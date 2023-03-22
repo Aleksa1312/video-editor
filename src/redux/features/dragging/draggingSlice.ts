@@ -4,11 +4,13 @@ import { IdFile } from "../sidebar/sidebarSlice";
 interface DraggingState {
     isDragging: boolean;
     draggingFile: IdFile | null;
+    timelineIsHover: boolean;
 }
 
 const initialState: DraggingState = {
     isDragging: false,
-    draggingFile: null
+    draggingFile: null,
+    timelineIsHover: false
 };
 
 export const draggingSlice = createSlice({

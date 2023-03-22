@@ -19,8 +19,10 @@ const SideFile: FC<SideFileProps> = ({ item }) => {
     }
 
     function onMouseUp() {
-        dispatch(setDraggingFile(item));
-        dispatch(setIsDragging(false));
+        setTimeout(() => {
+            dispatch(setDraggingFile(item));
+            dispatch(setIsDragging(false));
+        }, 50);
     }
 
     const x = useAppSelector((state) => state.mouse.x);
