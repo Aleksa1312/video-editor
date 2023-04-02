@@ -1,13 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import draggingSlice from "./features/dragging/draggingSlice";
-import sidebarSlice from "./features/sidebar/sidebarSlice";
-import mouseSlice from "./features/mouse/mouse.slice";
+
+import VideoPlayerSlice from "./features/VideoPlayer/VideoPlayerSlice";
+import TimelineSlice from "./features/Timeline/TimelineSlice";
 
 const store = configureStore({
     reducer: {
-        dragging: draggingSlice,
-        sidebar: sidebarSlice,
-        mouse: mouseSlice
+        videoPlayer: VideoPlayerSlice,
+        timeline: TimelineSlice
     }
 });
 

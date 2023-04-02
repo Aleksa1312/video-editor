@@ -1,32 +1,15 @@
-import { FC, useEffect } from "react";
+import { FC } from "react";
 
-import SideBar from "@/components/sidebar/SideBar";
-import Editor from "@/components/editor/Editor";
-import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setMouseX, setMouseY } from "@/redux/features/mouse/mouse.slice";
+import Timeline from "@/components/Timeline/Timeline";
+import VideoPlayer from "@/components/VideoPlayer/VideoPlayer";
 
-const Home: FC = () => {
-    const dispatch = useAppDispatch();
-
-    useEffect(() => {
-        function onMouseMove(e: MouseEvent) {
-            dispatch(setMouseX(e.clientX));
-            dispatch(setMouseY(e.clientY));
-        }
-
-        window.addEventListener("mousemove", onMouseMove);
-
-        return () => {
-            window.removeEventListener("mousemove", onMouseMove);
-        };
-    }, [dispatch]);
-
+const HomePage: FC = () => {
     return (
-        <div className="flex h-full w-full flex-row">
-            <SideBar />
-            <Editor />
+        <div className="page flex flex-col justify-between py-10">
+            <VideoPlayer />
+            <Timeline />
         </div>
     );
 };
 
-export default Home;
+export default HomePage;
