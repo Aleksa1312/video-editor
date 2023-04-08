@@ -1,43 +1,25 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import React, { FC, useCallback, useEffect, useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
-import { setNeedlePosition } from "@/redux/features/Timeline/TimelineSlice";
+import {
+    setNeedleIsDrag,
+    setNeedleIsHover,
+    setNeedlePosition,
+} from "@/redux/features/Timeline/TimelineSlice";
 
 import PointerIcon from "@/components/Icons/PointerIcon";
 
-interface NeedleProps {
-    timelineRef: React.RefObject<HTMLDivElement>;
-}
+const Needle: FC = () => {
+    const dispatch = useAppDispatch();
 
-const Needle: FC<NeedleProps> = ({ timelineRef }) => {
     const needlePosition = useAppSelector(
         (state) => state.timeline.needlePosition
     );
+    const isDragging = useAppSelector((state) => state.timeline.needleIsDrag);
 
-    const dispatch = useAppDispatch();
-
-    const [isDragging, setIsDragging] = useState<boolean>(false);
-
-    function moveNeedle(e: MouseEvent) {
-        dispatch(setNeedlePosition(e.clientX));
-    }
-
-    function onMouseDown() {
-        setIsDragging(true);
-        timelineRef.current?.addEventListener("mousemove", (e) =>
-            moveNeedle(e)
-        );
-    }
-
-    const removeTimelineEventListeners = useCallback(() => {
-        timelineRef.current?.replaceWith(timelineRef.current.cloneNode(true));
-    }, [timelineRef, moveNeedle]);
-
-    // monitor mouse up
     useEffect(() => {
         function handleMouseUp() {
-            setIsDragging(false);
-            removeTimelineEventListeners();
+            dispatch(setNeedleIsDrag(false));
         }
 
         window.addEventListener("mouseup", handleMouseUp);
@@ -45,17 +27,22 @@ const Needle: FC<NeedleProps> = ({ timelineRef }) => {
         return () => {
             window.removeEventListener("mouseup", handleMouseUp);
         };
-    }, []);
+    }, [dispatch]);
 
     return (
         <div
-            className="relative h-24 w-[2px] cursor-pointer bg-blue-500"
-            style={{ left: `${needlePosition}px` }}
-            onMouseDown={onMouseDown}
+            className="relative h-24 w-[5px] cursor-pointer bg-blue-500"
+            style={{
+                left: `${needlePosition}px`,
+                pointerEvents: isDragging ? "none" : "all",
+            }}
+            onMouseDown={() => dispatch(setNeedleIsDrag(true))}
+            onMouseOver={() => dispatch(setNeedleIsHover(true))}
+            onMouseLeave={() => dispatch(setNeedleIsHover(false))}
         >
             <PointerIcon
-                size={20}
-                className="relative top-[-0.9rem] left-[-0.55rem] text-blue-500"
+                size={30}
+                className="relative top-[-0.5rem] left-[-0.75rem] text-blue-700"
             />
         </div>
     );
